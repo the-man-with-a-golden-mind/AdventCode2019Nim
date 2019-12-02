@@ -11,7 +11,9 @@ proc getABC(s: var seq[string], i: int): Table[string, int] =
       let a:int = parseInt(s[i + 1])
       let b:int = parseInt(s[i + 2])
       let c:int = parseInt(s[i + 3])
-      {"a": a,"b": b, "c": c}.toTable
+      let aa:int = parseInt(s[a])
+      let bb:int = parseInt(s[b])
+      {"a": aa,"b": bb, "c": c}.toTable
 
 proc parse(seqToParse: var seq[string]): seq[string] = 
   var function: string = ""
@@ -23,15 +25,11 @@ proc parse(seqToParse: var seq[string]): seq[string] =
       function = seqToParse[iter]
       if function == "1":
         let abc = getABC(seqToParse, iter)
-        let aa:int = parseInt(seqToParse[abc["a"]])
-        let bb:int = parseInt(seqToParse[abc["b"]])
-        seqToParse[abc["c"]] = intToStr(aa + bb)
+        seqToParse[abc["c"]] = intToStr(abc["a"] + abc["b"])
         iter = iter + step
       elif function  == "2":
         let abc = getABC(seqToParse, iter)
-        let aa:int = parseInt(seqToParse[abc["a"]])
-        let bb:int = parseInt(seqToParse[abc["b"]])
-        seqToParse[abc["c"]] = intToStr(aa * bb)
+        seqToParse[abc["c"]] = intToStr(abc["a"] * abc["b"])
         iter = iter + step
       elif function != "99":
         echo("WRONG DATA")
